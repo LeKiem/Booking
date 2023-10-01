@@ -35,7 +35,7 @@ class UserManage extends Component {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Address</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
 
             {arrUsers &&
