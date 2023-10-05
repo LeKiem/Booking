@@ -16,32 +16,47 @@ class Specialty extends Component {
       dots: false,
       infinite: true,
       speed: 500,
-      slidesToShow: 1,
+      slidesToShow: 4,
       slidesToScroll: 1
+      // nextArrow: <SampleNextArrow />,
+      // prevArrow: <SamplePrevArrow />
     };
     return (
       <div className="section-specialty">
-        <div className="specialty-content">
-          <Slider {...settings}>
-            <div>
-              <h3 className="img-customize">1</h3>
-            </div>
-            <div>
-              <h3 className="img-customize">2</h3>
-            </div>
-            <div>
-              <h3 className="img-customize">3</h3>
-            </div>
-            <div>
-              <h3 className="img-customize">4</h3>
-            </div>
-            <div>
-              <h3 className="img-customize">5</h3>
-            </div>
-            <div>
-              <h3 className="img-customize">6</h3>
-            </div>
-          </Slider>
+        <div className="specialty-container">
+          <div className="specialty-header">
+            <span className="title-section"> Chuyen khoa pho bien</span>
+            <button className="btn-section">Xem them</button>
+          </div>
+          <div className="specialty-body">
+            <Slider {...settings}>
+              <div className="specialty-customize">
+                <div className="bg-img" />
+
+                <div> Co xuong khop 1</div>
+              </div>
+              <div className="specialty-customize">
+                <div className="bg-img" />
+                <div> Co xuong khop 2</div>
+              </div>
+              <div className="specialty-customize">
+                <div className="bg-img" />
+                <div> Co xuong khop 3</div>
+              </div>
+              <div className="specialty-customize">
+                <div className="bg-img" />
+                <div> Co xuong khop 4</div>
+              </div>
+              <div className="specialty-customize">
+                <div className="bg-img" />
+                <div> Co xuong khop 5</div>
+              </div>
+              <div className="specialty-customize">
+                <div className="bg-img" />
+                <div> Co xuong khop 6</div>
+              </div>
+            </Slider>
+          </div>
         </div>
       </div>
     );
