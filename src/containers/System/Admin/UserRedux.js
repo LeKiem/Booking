@@ -6,6 +6,7 @@ import { LANGUAGES } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import Lightbox from "react-image-lightbox";
+import TableManageUser from "./TableManageUser";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 
 class UserRedux extends Component {
@@ -17,6 +18,8 @@ class UserRedux extends Component {
       roleArr: [],
       previewImgURL: "",
       isOpen: false,
+
+      // isUserCreated:false,
 
       email: "",
       password: "",
@@ -63,6 +66,26 @@ class UserRedux extends Component {
           arrPositions && arrPositions.length > 0 ? arrPositions[0].key : ""
       });
     }
+    if (prevProps.listUsers !== this.props.listUsers) {
+      let arrGenders = this.props.genderRedux;
+      let arrRoles = this.props.roleRedux;
+      let arrPositions = this.props.positionRedux;
+      this.setState({
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        address: "",
+        gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : "",
+        role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : "",
+        position:
+          arrPositions && arrPositions.length > 0 ? arrPositions[0].key : "",
+        avatar: "",
+        // action: CRUD_ACTIONS.CREATE,
+        previewImgURL: ""
+      });
+    }
   }
   handleOnchangeImage = async event => {
     let data = event.target.files;
@@ -84,12 +107,10 @@ class UserRedux extends Component {
     });
   };
   handleSaveUser = () => {
-    console.log("chekc", this.state);
+    // console.log("check", this.state);
     let isValid = this.checkValidateInput();
     if (isValid === false) return;
-    // let { action } = this.state;
-    // if (action === CRUD_ACTIONS.CREATE) {
-    //   //fire redux action
+
     this.props.createNewUser({
       email: this.state.email,
       password: this.state.password,
@@ -102,6 +123,8 @@ class UserRedux extends Component {
       positionId: this.state.position
       // avatar: this.state.avatar
     });
+
+    this.props.fetchUserRedux();
     // }
     // if (action === CRUD_ACTIONS.EDIT) {
     //   //fire redux edit user
@@ -135,14 +158,9 @@ class UserRedux extends Component {
 
     copyState[id] = event.target.value;
     // console.log("on");
-    this.setState(
-      {
-        ...copyState
-      }
-      // () => {
-      //   console.log("hihih", this.state);
-      // }
-    );
+    this.setState({
+      ...copyState
+    });
   };
   render() {
     // console.log("de", this.state);
@@ -352,13 +370,17 @@ class UserRedux extends Component {
                   />
                 </div>
               </div>
-              <div className="col-12 mt-3">
+              <div className="col-12 my-3">
                 <button
                   className="btn btn-primary "
                   onClick={() => this.handleSaveUser()}
                 >
                   <FormattedMessage id="manage-user.save" />
                 </button>
+              </div>
+
+              <div className="col-12 mb-5">
+                <TableManageUser />
               </div>
             </div>
           </div>
@@ -379,7 +401,8 @@ const mapStateToProps = state => {
     genderRedux: state.admin.genders,
     roleRedux: state.admin.roles,
     positionRedux: state.admin.positions,
-    isLoadingGender: state.admin.isLoadingGender
+    isLoadingGender: state.admin.isLoadingGender,
+    listUsers: state.admin.users
   };
 };
 
@@ -388,7 +411,8 @@ const mapDispatchToProps = dispatch => {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
     getPositionStart: () => dispatch(actions.fetchPositionStart()),
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
-    createNewUser: data => dispatch(actions.createNewUser(data))
+    createNewUser: data => dispatch(actions.createNewUser(data)),
+    fetchUserRedux: () => dispatch(actions.fetchAllUsersStart())
 
     //  processLogout: () => dispatch(actions.processLogout()),
     //  changeLanguageAppRedux: language => dispatch(actions.changeLanguageApp(language))

@@ -4,7 +4,8 @@ const initialState = {
   isLoadingGender: false,
   genders: [],
   roles: [],
-  positions: []
+  positions: [],
+  users: []
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -12,13 +13,13 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_GENDER_START:
       let copyStateStart = { ...state };
       copyStateStart.isLoadingGender = true;
-      console.log("start, ", action);
+      // console.log("start, ", action);
       return { ...copyStateStart };
     case actionTypes.FETCH_GENDER_SUCCESS:
       state.genders = action.data;
       state.isLoadingGender = false;
 
-      console.log("success, ", action);
+      // console.log("success, ", action);
 
       return { ...state };
     case actionTypes.FETCH_GENDER_FAILED:
