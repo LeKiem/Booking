@@ -1,5 +1,8 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService } from "../../services/userService";
+import {
+  getAllCodeService,
+  createNewUserService
+} from "../../services/userService";
 
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START
@@ -78,3 +81,28 @@ export const fetchRoleStart = () => {
   };
 };
 // export default adminActions;
+export const createNewUser = data => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await createNewUserService(data);
+      // console.log("hhhhh", res);
+      if (res && res.errCode === 0) {
+        // toast.success("Create a new user Success");
+        dispatch(saveUserSuccess());
+        // dispatch(fetchAllUsersStart());
+      } else {
+        dispatch(saveUserFailed());
+      }
+    } catch (e) {
+      dispatch(saveUserFailed());
+      console.log(e);
+    }
+  };
+};
+export const saveUserSuccess = () => ({
+  type: actionTypes.CREATE_USER_SUCCESS
+});
+
+export const saveUserFailed = () => ({
+  type: actionTypes.CREATE_USER_FAILED
+});
