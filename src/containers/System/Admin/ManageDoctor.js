@@ -7,14 +7,15 @@ import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 // import style manually
 import "react-markdown-editor-lite/lib/index.css";
+import { LANGUAGES } from "../../../utils";
 
 import Select from "react-select";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" }
-];
+// const options = [
+//   { value: "chocolate", label: "Chocolate" },
+//   { value: "strawberry", label: "Strawberry" },
+//   { value: "vanilla", label: "Vanilla" }
+// ];
 const mdParser = new MarkdownIt /* Markdown-it options */();
 
 class ManageDoctor extends Component {
@@ -24,14 +25,46 @@ class ManageDoctor extends Component {
       contentMarkdown: "",
       contentHTML: "",
       selectedOption: "",
-      description: ""
+      description: "",
+      listDoctors: []
     };
   }
 
   componentDidMount() {
-    this.props.fetchUserRedux();
+    // this.props.fetchUserRedux();
+    this.props.fetchAllDoctors();
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {}
+
+  buildDataInputSelect = inputData => {
+    let result = [];
+    let { language } = this.props;
+    if (inputData && inputData.length > 0) {
+      inputData.map((item, index) => {
+        let object = {};
+        let labelVi = `${item.lastName} ${item.firstName}`;
+        let labelEn = `${item.firstName} ${item.lastName}`;
+        object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+        object.value = item.id;
+        result.push(object);
+        console.log("3333", object.value);
+      });
+    }
+
+    return result;
+  };
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.allDoctors !== this.props.allDoctors) {
+      let dataSelect = this.buildDataInputSelect(this.props.allDoctors);
+      this.setState({
+        listDoctors: dataSelect
+      });
+      console.log();
+    }
+    if (prevProps.language !== this.props.language) {
+      let dataSelect = this.buildDataInputSelect(this.props.allDoctors);
+      this.setState({ listDoctors: dataSelect });
+    }
+  }
   // Finish!
   handleEditorChange = ({ html, text }) => {
     this.setState({
@@ -41,12 +74,18 @@ class ManageDoctor extends Component {
     // console.log("handleEditorChange", html, text);
   };
   handleSaveContentMarkdown = () => {
-    console.log("staet", this.state);
+    this.props.saveDetailDoctor({
+      contentHTML: this.state.contentHTML,
+      contentMarkdown: this.state.contentMarkdown,
+      description: this.state.description,
+      doctorId: this.state.selectedOption.value
+    });
+    console.log("", this.state.contentHTML);
+    console.log("", this.state.contentMarkdown);
+    console.log("555", this.props.doctorId);
   };
-  handleChange = selectedOption => {
-    this.setState({ selectedOption }, () =>
-      console.log(`Option selected:`, this.state.selectedOption)
-    );
+  handleChange = async selectedOption => {
+    this.setState({ selectedOption });
   };
   handleOnChangeDesc = event => {
     this.setState({
@@ -54,6 +93,7 @@ class ManageDoctor extends Component {
     });
   };
   render() {
+    console.log("kkkk", this.state);
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">Tạo thông tin bác sĩ</div>
@@ -61,10 +101,10 @@ class ManageDoctor extends Component {
         <div className="more-info">
           <div className="content-left form-group">
             <label>Chon bac si</label>
-            <Select //   className="form-control"
+            <Select
               value={this.state.selectedOption}
               onChange={this.handleChange}
-              options={options}
+              options={this.state.listDoctors}
             />
           </div>
           <div className="content-right form-group">
@@ -75,14 +115,12 @@ class ManageDoctor extends Component {
               rows="4"
               onChange={event => this.handleOnChangeDesc(event)}
               value={this.state.description}
-            >
-              hi
-            </textarea>
+            />
           </div>
         </div>
         <div className="manage-doctor-editor">
           <MdEditor
-            style={{ height: "500px" }}
+            style={{ height: "300px" }}
             renderHTML={text => mdParser.render(text)}
             onChange={this.handleEditorChange}
           />
@@ -99,13 +137,17 @@ class ManageDoctor extends Component {
 }
 
 const mapStateToProps = state => {
-  return { listUsers: state.admin.users };
+  return {
+    allDoctors: state.admin.allDoctors,
+    language: state.app.language
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
-    deleteAUserRedux: id => dispatch(actions.deleteAUser(id))
+    // fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
+    fetchAllDoctors: id => dispatch(actions.fetchAllDoctors()),
+    saveDetailDoctor: data => dispatch(actions.saveDetailDoctor(data))
   };
 };
 
