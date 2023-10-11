@@ -11,12 +11,18 @@ import tongQuat from "../../assets//images/icon/kham-tong-quan.png";
 import yHoc from "../../assets//images/icon/xet-nghiem-y-hoc.png";
 import tinhThan from "../../assets//images/icon/suc-khoe-tinh-than.png";
 import nhaKhoa from "../../assets//images/icon/kham-nha-khoa.png";
+import { withRouter } from "react-router";
 
 import { changeLanguageApp } from "../../store/actions";
 class HomeHeader extends Component {
   changeLanguage = language => {
     // alert(language);
     this.props.changeLanguageAppRedux(language);
+  };
+  returnHome = () => {
+    if (this.props.history) {
+      this.props.history.push(`/home`);
+    }
   };
   render() {
     let language = this.props.language;
@@ -26,7 +32,11 @@ class HomeHeader extends Component {
           <div className="home-header-content">
             <div className="left-content">
               <i className="fas fa-bars" />
-              <img className="header-logo" src={logo} />
+              <img
+                className="header-logo"
+                src={logo}
+                onClick={() => this.returnHome()}
+              />
               {/* <div className="header-logo">
                 <h1 />
               </div> */}
@@ -195,4 +205,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+);

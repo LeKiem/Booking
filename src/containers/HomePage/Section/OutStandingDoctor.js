@@ -28,7 +28,9 @@ class OutStandingDoctor extends Component {
   handleViewDetailDoctor = doctor => {
     console.log("1", doctor);
     // return <Redirect to="/user/:kkk" push={true} />;
-    this.props.history.push(`/detail-doctor/${doctor.id}`);
+    if (this.props.history) {
+      this.props.history.push(`/detail-doctor/${doctor.id}`);
+    }
   };
   render() {
     // console.log("Redux ", this.props.topDoctorsRedux);
