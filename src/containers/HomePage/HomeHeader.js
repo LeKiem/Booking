@@ -104,78 +104,79 @@ class HomeHeader extends Component {
             </div>
           </div>
         </div>
-        <div className="home-header-banner">
-          <div className="content-up">
-            <div className="title1">
-              <FormattedMessage id="banner.title1" />
-            </div>
-            <div className="title2">
-              <FormattedMessage id="banner.title2" />
-            </div>
-            <div className="search">
-              <i className="fas fa-search" />
-              <input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
-            </div>
-          </div>
-          <div className="content-down">
-            <div className="options">
-              <div className="option-child">
-                <div className="icon-child">
-                  {/* <i className="fas fa-hospital" /> */}
-                  <img src={chuyenKhoa} />
-                </div>
-                <div className="text-child">
-                  {" "}<FormattedMessage id="banner.Specialist" />{" "}
-                </div>
+        {this.props.isShowBanner === true &&
+          <div className="home-header-banner">
+            <div className="content-up">
+              <div className="title1">
+                <FormattedMessage id="banner.title1" />
               </div>
-              <div className="option-child">
-                <div className="icon-child">
-                  {/* <i className="fas fa-mobile-alt" /> */}
-                  <img src={tuXa} />
-                </div>
-                <div className="text-child">
-                  {" "}<FormattedMessage id="banner.far" />
-                </div>
+              <div className="title2">
+                <FormattedMessage id="banner.title2" />
               </div>
-              <div className="option-child">
-                <div className="icon-child">
-                  {/* <i className="fas fa-procedures" /> */}
-                  <img src={tongQuat} />
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.generality" />
-                </div>
-              </div>
-              <div className="option-child">
-                <div className="icon-child">
-                  {/* <i className="fas fa-flask" /> */}
-                  <img src={yHoc} />
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.test" />
-                </div>
-              </div>
-              <div className="option-child">
-                <div className="icon-child">
-                  {/* <i className="fas fa-user-md" /> */}
-                  <img src={tinhThan} />
-                </div>
-                <div className="text-child">
-                  {" "}<FormattedMessage id="banner.morale" />{" "}
-                </div>
-              </div>
-              <div className="option-child">
-                <div className="icon-child">
-                  {/* <i className="fas fa-briefcase-medical" /> */}
-                  <img src={nhaKhoa} />
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.dentistry" />
-                </div>
+              <div className="search">
+                <i className="fas fa-search" />
+                <input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
               </div>
             </div>
-          </div>
-        </div>
+            <div className="content-down">
+              <div className="options">
+                <div className="option-child">
+                  <div className="icon-child">
+                    {/* <i className="fas fa-hospital" /> */}
+                    <img src={chuyenKhoa} />
+                  </div>
+                  <div className="text-child">
+                    {" "}<FormattedMessage id="banner.Specialist" />{" "}
+                  </div>
+                </div>
+                <div className="option-child">
+                  <div className="icon-child">
+                    {/* <i className="fas fa-mobile-alt" /> */}
+                    <img src={tuXa} />
+                  </div>
+                  <div className="text-child">
+                    {" "}<FormattedMessage id="banner.far" />
+                  </div>
+                </div>
+                <div className="option-child">
+                  <div className="icon-child">
+                    {/* <i className="fas fa-procedures" /> */}
+                    <img src={tongQuat} />
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.generality" />
+                  </div>
+                </div>
+                <div className="option-child">
+                  <div className="icon-child">
+                    {/* <i className="fas fa-flask" /> */}
+                    <img src={yHoc} />
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.test" />
+                  </div>
+                </div>
+                <div className="option-child">
+                  <div className="icon-child">
+                    {/* <i className="fas fa-user-md" /> */}
+                    <img src={tinhThan} />
+                  </div>
+                  <div className="text-child">
+                    {" "}<FormattedMessage id="banner.morale" />{" "}
+                  </div>
+                </div>
+                <div className="option-child">
+                  <div className="icon-child">
+                    {/* <i className="fas fa-briefcase-medical" /> */}
+                    <img src={nhaKhoa} />
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.dentistry" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>}
       </React.Fragment>
     );
   }
