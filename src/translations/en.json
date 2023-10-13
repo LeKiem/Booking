@@ -59,5 +59,11 @@
     "outstanding-doctor": "Outstanding Doctor of the Week",
     "more-info": "More Info",
     "specialty-poplular": " Popular Specialization"
+  },
+  "manage-schedule": {
+    "title": "Manage doctor's examination plan",
+    "choose-doctor": "Choose doctor",
+    "choose-date": "Choose date",
+    "save": "Save info"
   }
 }

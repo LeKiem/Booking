@@ -133,6 +133,7 @@ export const fetchAllUsersStart = () => {
     }
   };
 };
+
 export const fetchAllUsersSuccess = data => ({
   type: actionTypes.FETCH_ALL_USERS_SUCCESS,
   users: data
@@ -274,6 +275,29 @@ export const saveDetailDoctor = data => {
       console.log("SAVE_DETAIL_DOCTOR_FAILED", e);
       dispatch({
         type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED
+      });
+    }
+  };
+};
+export const fetchAllScheduleTime = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllCodeService("TIME");
+      // console.log("rrr", res);
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS,
+          dataTime: res.data
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED
+        });
+      }
+    } catch (e) {
+      console.log("FETCH_ALLCODE_SCHEDULE_TIME_FAILED", e);
+      dispatch({
+        type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED
       });
     }
   };
