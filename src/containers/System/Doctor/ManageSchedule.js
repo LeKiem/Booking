@@ -9,6 +9,7 @@ import DatePicker from "../../../components/Input/DatePicker";
 import moment from "moment";
 import { toast } from "react-toastify";
 import _ from "lodash";
+import { saveBulkScheduleDoctor } from "../../../services/userService";
 // import { FormattedDate } from "react-intl";
 class ManageSchedule extends Component {
   constructor(props) {
@@ -95,8 +96,8 @@ class ManageSchedule extends Component {
       return;
     }
 
-    // let formatedDate = new Date(currentDate).getTime();
-    let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+    let formatedDate = new Date(currentDate).getTime();
+    // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
 
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter(item => item.isSelected === true);
@@ -116,17 +117,19 @@ class ManageSchedule extends Component {
       //   // console.log(selectedTime)
       // }
 
-      // let res = await saveBulkScheduleDoctor({
-      //   arrSchedule: result,
-      //   doctorId: selectedDoctor.value,
-      //   formatedDate: formatedDate
-      // });
-
-      // if (res && res.errCode === 0) {
-      //   toast.success("Save infor succedd!!");
-      // } else {
-      //   toast.error("error save bulk schedule doctor ");
-      //   console.log("error save bulk schedule doctor", res);
+      let res = await saveBulkScheduleDoctor({
+        arrSchedule: result,
+        doctorId: selectedDoctor.value,
+        formatedDate: formatedDate
+      });
+      console.log("1", result);
+      console.log("2", res);
+      if (res && res.errCode === 0) {
+        toast.success("Save infor succedd 🤣🤣🤣❤️❤️!!");
+      } else {
+        toast.error("error save bulk schedule doctor ");
+        // console.log("error save bulk schedule doctor", res);
+      }
     }
   };
   render() {

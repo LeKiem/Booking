@@ -18,14 +18,20 @@
         flex-wrap     : wrap;
 
         button {
-            padding: 5px 15px;
-            border : 1px solid gray;
+            padding          : 10px 15px;
+            border           : 1px solid gray;
+            color            : #333333;
+            text-align       : center;
+            // font-family: Montserrat;
+            font-size        : 14px;
+            // font-weight   : 700;
+            line-height      : 18.6662px
         }
     }
 
     .btn-schedule {
         &.active {
-            background-color: rgb(237, 184, 8);
+            background-color: #fff04b;
         }
     }
 
