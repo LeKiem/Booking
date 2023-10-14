@@ -7,6 +7,7 @@ import { FormattedMessage } from "react-intl";
 import moment from "moment";
 import localization from "moment/locale/vi";
 import { LANGUAGES } from "../../../utils";
+import BookingModal from "./Modal/BookingModal";
 
 class DoctorSchedule extends Component {
   constructor(props) {
@@ -107,8 +108,25 @@ class DoctorSchedule extends Component {
       console.log("check res schedule: ", res);
     }
   };
+  handleClickScheduleTime = (time) => {
+    this.setState({
+      isOpenModalBooking: true,
+      dataScheduleTimeModal: time
+    });
+  };
+  closeBookingModal = () => {
+    this.setState({
+      isOpenModalBooking: false
+    });
+  };
+
   render() {
-    let { allDays, allAvailableTime } = this.state;
+    let {
+      allDays,
+      allAvailableTime,
+      isOpenModalBooking,
+      dataScheduleTimeModal
+    } = this.state;
     let { language } = this.props;
     return (
       <>
@@ -150,7 +168,7 @@ class DoctorSchedule extends Component {
                           className={
                             language === LANGUAGES.VI ? "btn-vi" : "btn-en"
                           }
-                          //   onClick={() => this.handleClickScheduleTime(item)}
+                          onClick={() => this.handleClickScheduleTime(item)}
                         >
                           {timeDisplay}
                         </button>
@@ -174,6 +192,11 @@ class DoctorSchedule extends Component {
             </div>
           </div>
         </div>
+        <BookingModal
+          isOpenModal={isOpenModalBooking}
+          closeBookingModal={this.closeBookingModal}
+          dataTime={dataScheduleTimeModal}
+        />
       </>
     );
   }

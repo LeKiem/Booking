@@ -31,22 +31,24 @@ class DetailDoctor extends Component {
           detailDoctor: res.data
         });
       }
-      console.log("111", res);
+      // console.log("111", res);
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {}
   render() {
     // const { systemMenuPath, isLoggedIn } = this.props;
 
-    console.log("22", this.state);
     let { detailDoctor } = this.state;
+    console.log("111111", this.state);
     let { language } = this.props;
     let nameVi = "",
       nameEn = "";
     if (detailDoctor && detailDoctor.positionData) {
-      nameVi = `${detailDoctor.positionData.valueVi},${detailDoctor.lastName} ${detailDoctor.firstName}`;
-      nameEn = `${detailDoctor.positionData.valueEn},${detailDoctor.firstName} ${detailDoctor.lastName}`;
+      nameVi = `${detailDoctor.positionData.valueVi} ,${detailDoctor.lastName},${detailDoctor.firstName}`;
+      nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName},${detailDoctor.lastName}`;
+      console.log("docto", nameVi);
     }
+    // console.log("docto", nameVi);
 
     return (
       <React.Fragment>
