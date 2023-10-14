@@ -192,26 +192,112 @@ class ManageDoctor extends Component {
       note: this.state.note
     });
   };
+  // handleChangeSelect1 = async (selectedOption) => {
+  //   this.setState({ selectedOption });
+  //   let res = await getDetailInfoDoctor(selectedOption.value);
+  //   if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+  //     let markdown = res.data.Markdown;
+  //     this.setState({
+  //       contentHTML: markdown.contentHTML,
+  //       contentMarkdown: markdown.contentMarkdown,
+  //       description: markdown.description,
+  //       hasOldData: true
+  //     });
+  //   } else {
+  //     this.setState({
+  //       contentHTML: "",
+  //       contentMarkdown: "",
+  //       description: "",
+  //       hasOldData: false
+  //     });
+  //   }
+  //   // console.log("55", res);
+  // };
   handleChangeSelect = async (selectedOption) => {
     this.setState({ selectedOption });
+    let {
+      listPayment,
+      listPrice,
+      listProvince
+      // listSpecialty,
+      // listClinic
+    } = this.state;
     let res = await getDetailInfoDoctor(selectedOption.value);
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
       let markdown = res.data.Markdown;
+      let addressClinic = "",
+        nameClinic = "",
+        note = "",
+        paymentId = "",
+        priceId = "",
+        provinceId = "",
+        // specialtyId = "",
+        // clinicId = "",
+        // selectClinic = "",
+        selectPrice = "",
+        selectPayment = "",
+        selectProvince = "";
+      // selectSpecialty = "";
+
+      if (res.data.Doctor_Infor) {
+        addressClinic = res.data.Doctor_Infor.addressClinic;
+        nameClinic = res.data.Doctor_Infor.nameClinic;
+        note = res.data.Doctor_Infor.note;
+
+        paymentId = res.data.Doctor_Infor.paymentId;
+        priceId = res.data.Doctor_Infor.priceId;
+        provinceId = res.data.Doctor_Infor.provinceId;
+        // specialtyId = res.data.Doctor_Infor.specialtyId;
+        // clinicId = res.data.Doctor_Infor.clinicId;
+
+        selectPayment = listPayment.find((item) => {
+          return item && item.value === paymentId;
+        });
+        selectPrice = listPrice.find((item) => {
+          return item && item.value === priceId;
+        });
+        selectProvince = listProvince.find((item) => {
+          return item && item.value === provinceId;
+        });
+        // selectSpecialty = listSpecialty.find(item => {
+        //   return item && item.value === specialtyId;
+        // });
+        // selectClinic = listClinic.find(item => {
+        //   return item && item.value === clinicId;
+        // });
+      }
+
       this.setState({
         contentHTML: markdown.contentHTML,
         contentMarkdown: markdown.contentMarkdown,
         description: markdown.description,
-        hasOldData: true
+        hasOldData: true,
+        addressClinic: addressClinic,
+        nameClinic: nameClinic,
+        note: note,
+        selectPayment: selectPayment,
+        selectPrice: selectPrice,
+        selectProvince: selectProvince
+        // selectSpecialty: selectSpecialty,
+        // selectClinic: selectClinic
       });
     } else {
       this.setState({
-        contentHTML: "",
-        contentMarkdown: "",
-        description: "",
-        hasOldData: false
+        contentHTML: " ",
+        contentMarkdown: " ",
+        description: " ",
+        hasOldData: false,
+        addressClinic: "",
+        nameClinic: "",
+        note: "",
+        selectPayment: "",
+        selectPrice: "",
+        selectProvince: "",
+        selectSpecialty: "",
+        selectClinic: ""
       });
     }
-    // console.log("55", res);
+    console.log(`Option selected:`, res);
   };
   handChangeSelectDoctorInfor = async (selectedOption, name) => {
     let stateName = name.name;
@@ -233,6 +319,7 @@ class ManageDoctor extends Component {
   render() {
     // console.log("kkkk", this.state);
     let { hasOldData } = this.state;
+    console.log("hahaha", this.state);
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">
@@ -368,7 +455,6 @@ class ManageDoctor extends Component {
             </span>
           ) : (
             <span>
-              {" "}
               <FormattedMessage id="admin.manage-doctor.add" />
             </span>
           )}
