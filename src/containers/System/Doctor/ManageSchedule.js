@@ -27,7 +27,7 @@ class ManageSchedule extends Component {
     this.props.fetchAllDoctors();
     this.props.fetchAllScheduleTime();
   }
-  buildDataInputSelect = inputData => {
+  buildDataInputSelect = (inputData) => {
     let result = [];
     let { language } = this.props;
     if (inputData && inputData.length > 0) {
@@ -53,7 +53,7 @@ class ManageSchedule extends Component {
     if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
       let data = this.props.allScheduleTime;
       if (data && data.length > 0) {
-        data = data.map(item => ({ ...item, isSelected: false }));
+        data = data.map((item) => ({ ...item, isSelected: false }));
       }
       // console.log("1d", data);
       this.setState({
@@ -61,19 +61,19 @@ class ManageSchedule extends Component {
       });
     }
   }
-  handleChangeSelect = async selectedOption => {
+  handleChangeSelect = async (selectedOption) => {
     this.setState({ selectedDoctor: selectedOption });
   };
-  handleOnChangeDatePicker = date => {
+  handleOnChangeDatePicker = (date) => {
     this.setState({
       currentDate: date[0]
     });
   };
-  handleClickBtnTime = time => {
+  handleClickBtnTime = (time) => {
     // console.log('before',time);
     let { rangeTime } = this.state;
     if (rangeTime && rangeTime.length > 0) {
-      rangeTime = rangeTime.map(item => {
+      rangeTime = rangeTime.map((item) => {
         if (item.id === time.id) item.isSelected = !item.isSelected;
         return item;
       });
@@ -100,9 +100,9 @@ class ManageSchedule extends Component {
     // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
 
     if (rangeTime && rangeTime.length > 0) {
-      let selectedTime = rangeTime.filter(item => item.isSelected === true);
+      let selectedTime = rangeTime.filter((item) => item.isSelected === true);
       if (selectedTime && selectedTime.length > 0) {
-        selectedTime.map(schedule => {
+        selectedTime.map((schedule) => {
           let object = {};
           object.doctorId = selectedDoctor.value;
           object.date = formatedDate;
@@ -193,7 +193,8 @@ class ManageSchedule extends Component {
                 className="btn btn-primary btn-save-schedule"
                 onClick={() => this.handleSaveSchedule()}
               >
-                {" "}<FormattedMessage id="manage-schedule.save" />
+                {" "}
+                <FormattedMessage id="manage-schedule.save" />
               </button>
             </div>
           </div>
@@ -203,7 +204,7 @@ class ManageSchedule extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     allDoctors: state.admin.allDoctors,
@@ -212,7 +213,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
     fetchAllScheduleTime: () => dispatch(actions.fetchAllScheduleTime())

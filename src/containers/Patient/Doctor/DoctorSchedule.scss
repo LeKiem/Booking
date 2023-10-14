@@ -25,7 +25,9 @@
             color : #333;
             margin: 10px 0;
 
-            i {}
+            i {
+                // margin-right: 5px;
+            }
 
             span {
                 text-transform: uppercase;
@@ -43,18 +45,19 @@
 
 
                 button {
-                    border-radius   : 5px;
+                    border-radius   : 4px;
                     padding         : 9px 10px;
                     min-width       : 120px;
                     border          : none;
                     outline         : none;
-                    background-color: #fff04b;
+                    background-color: #d0c11c;
                     font-weight     : 600;
                     color           : #333;
 
                     &:hover {
-                        background-color: aqua;
+                        background-color: rgb(19, 154, 154);
                         color           : #fff;
+                        opacity         : 0.8;
                     }
                 }
 
