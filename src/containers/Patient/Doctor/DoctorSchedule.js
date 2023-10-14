@@ -20,37 +20,75 @@ class DoctorSchedule extends Component {
   }
   async componentDidMount() {
     let { language } = this.props;
-    this.setArrDay(language);
+    let allDays = this.getArrDays(language);
+
+    // if (this.props.doctorIdFromParent) {
+    //   let res = await getScheduleDoctorByDate(
+    //     this.props.doctorIdFromParent,
+    //     allDays[0].value
+    //   );
+    //   this.setState({
+    //     allAvailableTime: res.data ? res.data : []
+    //   });
+    // }
+
+    this.setState({
+      allDays: allDays
+    });
   }
 
-  setArrDay = async (language) => {
+  getArrDays = (language) => {
     let allDays = [];
 
     for (let i = 0; i < 7; i++) {
       let object = {};
       if (language === LANGUAGES.VI) {
-        let labelVi = moment(new Date()).add(i, "days").format("dddd - DD/MM");
-        object.label = this.capitalizeFirstLetter(labelVi);
+        if (i === 0) {
+          let ddMM = moment(new Date()).format("DD/MM");
+          let today = `Hôm nay - ${ddMM}`;
+          object.label = today;
+        } else {
+          let labelVi = moment(new Date())
+            .add(i, "days")
+            .format("dddd - DD/MM");
+          object.label = this.capitalizeFirstLetter(labelVi);
+        }
       } else {
-        object.label = moment(new Date())
-          .add(i, "days")
-          .locale("en")
-          .format("ddd - DD/MM");
+        if (i === 0) {
+          let ddMM = moment(new Date()).format("DD/MM");
+          let today = `Today - ${ddMM}`;
+          object.label = today;
+        } else {
+          object.label = moment(new Date())
+            .add(i, "days")
+            .locale("en")
+            .format("ddd - DD/MM");
+        }
       }
       object.value = moment(new Date()).add(i, "days").startOf("day").valueOf();
 
       allDays.push(object);
     }
-    let res = await getScheduleDoctorByDate(30, 1697475600000);
-    console.log("1111111", res);
-    // console.log("(099999", allDays);
-    this.setState({
-      allDays: allDays
-    });
+
+    return allDays;
   };
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.language !== prevProps.language) {
-      this.setArrDay(this.props.language);
+      let allDays = this.getArrDays(this.props.language);
+      this.setState({
+        allDays: allDays
+      });
+    }
+    if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
+      let allDays = this.getArrDays(this.props.language);
+
+      let res = await getScheduleDoctorByDate(
+        this.props.doctorIdFromParent,
+        allDays[0].value
+      );
+      this.setState({
+        allAvailableTime: res.data ? res.data : []
+      });
     }
   }
   capitalizeFirstLetter(string) {

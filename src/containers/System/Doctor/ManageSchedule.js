@@ -122,13 +122,13 @@ class ManageSchedule extends Component {
         doctorId: selectedDoctor.value,
         formatedDate: formatedDate
       });
-      console.log("1", result);
-      console.log("2", res);
+      // console.log("1", result);
+      // console.log("2", res);
       if (res && res.errCode === 0) {
-        toast.success("Save infor succedd 🤣🤣🤣❤️❤️!!");
+        toast.success("Save info succeed 🤣🤣🤣❤️❤️!!");
       } else {
         toast.error("error save bulk schedule doctor ");
-        // console.log("error save bulk schedule doctor", res);
+        console.log("error save bulk schedule doctor", res);
       }
     }
   };
@@ -163,7 +163,7 @@ class ManageSchedule extends Component {
                 className="form-control"
                 onChange={this.handleOnChangeDatePicker}
                 value={this.state.currentDate}
-                minDate={new Date()}
+                minDate={yesterday}
               />
               {/* // 
              }

@@ -9,7 +9,6 @@
 
         .content-left {
             width          : 20%;
-            // border: 1px solid green;
             background     : center center no-repeat;
             background-size: cover;
             width          : 120px;
@@ -20,7 +19,6 @@
 
         .content-right {
             width         : 80%;
-            // border: 1px solid rgb(13, 0, 128);
             display       : flex;
             flex-direction: column;
             padding-left  : 10px;
@@ -43,7 +41,6 @@
     .schedule-doctor {
         margin    : 0 100px;
         display   : flex;
-        // height : 100%;
         min-height: 200px;
         padding   : 10px 0;
 
