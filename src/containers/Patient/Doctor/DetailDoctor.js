@@ -4,7 +4,7 @@ import HomeHeader from "../../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import { getDetailInfoDoctor } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
-
+import DoctorSchedule from "./DoctorSchedule";
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
@@ -38,10 +38,8 @@ class DetailDoctor extends Component {
     let nameVi = "",
       nameEn = "";
     if (detailDoctor && detailDoctor.positionData) {
-      nameVi = `${detailDoctor.positionData
-        .valueVi},${detailDoctor.lastName} ${detailDoctor.firstName}`;
-      nameEn = `${detailDoctor.positionData
-        .valueEn},${detailDoctor.firstName} ${detailDoctor.lastName}`;
+      nameVi = `${detailDoctor.positionData.valueVi},${detailDoctor.lastName} ${detailDoctor.firstName}`;
+      nameEn = `${detailDoctor.positionData.valueEn},${detailDoctor.firstName} ${detailDoctor.lastName}`;
     }
 
     return (
@@ -52,9 +50,9 @@ class DetailDoctor extends Component {
             <div
               className="content-left"
               style={{
-                backgroundImage: `url(${detailDoctor && detailDoctor.image
-                  ? detailDoctor.image
-                  : ""})`
+                backgroundImage: `url(${
+                  detailDoctor && detailDoctor.image ? detailDoctor.image : ""
+                })`
               }}
             />
             <div className="content-right">
@@ -64,26 +62,35 @@ class DetailDoctor extends Component {
               <div className="down">
                 {detailDoctor &&
                   detailDoctor.Markdown &&
-                  detailDoctor.Markdown.description &&
-                  <span>
-                    {detailDoctor.Markdown.description}
-                  </span>}
+                  detailDoctor.Markdown.description && (
+                    <span>{detailDoctor.Markdown.description}</span>
+                  )}
               </div>
             </div>
           </div>
-          <div className="schedule-doctor">2</div>
+          <div className="schedule-doctor">
+            <div className="content-left">
+              <DoctorSchedule
+                doctorIdFromParent={
+                  detailDoctor && detailDoctor.id ? detailDoctor.id : -1
+                }
+              />
+            </div>
+            <div className="content-right">2</div>
+          </div>
+
           <div className="detail-info-doctor">
-            {" "}{detailDoctor &&
+            {" "}
+            {detailDoctor &&
               detailDoctor.Markdown &&
-              detailDoctor.Markdown.contentHTML &&
-              // <div>
-              //   {detailDoctor.Markdown.contentHTML}
-              // </div>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: detailDoctor.Markdown.contentHTML
-                }}
-              />}
+              detailDoctor.Markdown.contentHTML && ( //   {detailDoctor.Markdown.contentHTML} // <div>
+                // </div>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: detailDoctor.Markdown.contentHTML
+                  }}
+                />
+              )}
           </div>
           <div className="comment-doctor">4</div>
         </div>
@@ -92,14 +99,14 @@ class DetailDoctor extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     language: state.app.language
     // systemMenuPath: state.app.systemMenuPath
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
