@@ -31,31 +31,27 @@ export const fetchGenderStart = () => {
     }
   };
 };
-export const fetchGenderSuccess = genderData => ({
+export const fetchGenderSuccess = (genderData) => ({
   type: actionTypes.FETCH_GENDER_SUCCESS,
   data: genderData
 });
 export const fetchGenderFailed = () => ({
   type: actionTypes.FETCH_GENDER_FAILED
 });
-export const fetchPositionSuccess = positionData => ({
+export const fetchPositionSuccess = (positionData) => ({
   type: actionTypes.FETCH_POSITION_SUCCESS,
   data: positionData
 });
-
 export const fetchPositionFailed = () => ({
   type: actionTypes.FETCH_POSITION_FAILED
 });
-
-export const fetchRoleSuccess = roleData => ({
+export const fetchRoleSuccess = (roleData) => ({
   type: actionTypes.FETCH_ROLE_SUCCESS,
   data: roleData
 });
-
 export const fetchRoleFailed = () => ({
   type: actionTypes.FETCH_ROLE_FAILED
 });
-
 export const fetchPositionStart = () => {
   return async (dispatch, getState) => {
     try {
@@ -71,7 +67,6 @@ export const fetchPositionStart = () => {
     }
   };
 };
-
 export const fetchRoleStart = () => {
   return async (dispatch, getState) => {
     try {
@@ -88,7 +83,7 @@ export const fetchRoleStart = () => {
   };
 };
 // export default adminActions;
-export const createNewUser = data => {
+export const createNewUser = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await createNewUserService(data);
@@ -134,7 +129,7 @@ export const fetchAllUsersStart = () => {
   };
 };
 
-export const fetchAllUsersSuccess = data => ({
+export const fetchAllUsersSuccess = (data) => ({
   type: actionTypes.FETCH_ALL_USERS_SUCCESS,
   users: data
 });
@@ -143,7 +138,7 @@ export const fetchAllUsersFailed = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAILED
 });
 
-export const deleteAUser = userId => {
+export const deleteAUser = (userId) => {
   return async (dispatch, getState) => {
     try {
       let res = await deleteUserService(userId);
@@ -172,7 +167,7 @@ export const deleteUserFailed = () => ({
   type: actionTypes.DELETE_USER_FAILED
 });
 
-export const editAUser = data => {
+export const editAUser = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await editUserService(data);
@@ -250,7 +245,7 @@ export const fetchAllDoctors = () => {
   };
 };
 
-export const saveDetailDoctor = data => {
+export const saveDetailDoctor = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await saveDetailDoctorService(data);
@@ -302,3 +297,52 @@ export const fetchAllScheduleTime = () => {
     }
   };
 };
+
+export const getRequiredDoctorInfor = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_START });
+      let resPrice = await getAllCodeService("PRICE");
+      let resPayment = await getAllCodeService("PAYMENT");
+      let resProvince = await getAllCodeService("PROVINCE");
+      // let resSpecialty = await getAllSpecialty();
+      // let resClinic = await getAllClinic();
+      if (
+        resPrice &&
+        resPrice.errCode === 0 &&
+        resPayment &&
+        resPayment.errCode === 0 &&
+        resProvince &&
+        resProvince.errCode === 0
+        //  &&
+        // resSpecialty &&
+        // resSpecialty.errCode === 0 &&
+        // resClinic &&
+        // resClinic.errCode === 0
+      ) {
+        let data = {
+          resPrice: resPrice.data,
+          resPayment: resPayment.data,
+          resProvince: resProvince.data
+          // resSpecialty: resSpecialty.data,
+          // resClinic: resClinic.data
+        };
+        dispatch(fetchRequireDoctorInforSuccess(data));
+      } else {
+        dispatch(fetchRequireDoctorInfoFailed());
+      }
+    } catch (e) {
+      dispatch(fetchRequireDoctorInfoFailed());
+      console.log("fetchRequireDoctorInfo error", e);
+    }
+  };
+};
+
+export const fetchRequireDoctorInforSuccess = (allRequiredData) => ({
+  type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_SUCCESS,
+  data: allRequiredData
+});
+
+export const fetchRequireDoctorInfoFailed = () => ({
+  type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_FAILED
+});
