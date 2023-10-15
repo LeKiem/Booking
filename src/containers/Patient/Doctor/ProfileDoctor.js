@@ -7,6 +7,8 @@ import { LANGUAGES } from "../../../utils";
 import NumberFormat from "react-number-format";
 import _ from "lodash";
 import moment from "moment";
+import localization from "moment/locale/vi";
+
 // import { Link } from "react-router-dom";
 
 class ProfileDoctor extends Component {
@@ -43,40 +45,45 @@ class ProfileDoctor extends Component {
       // this.getInforDoctor(this.props.doctorId);
     }
   }
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  renderTimeBooking = (dataTime) => {
+    let { language } = this.props;
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let time =
+        language === LANGUAGES.VI
+          ? dataTime.timeTypeData.valueVi
+          : dataTime.timeTypeData.valueEn;
+      let date =
+        language === LANGUAGES.VI
+          ? this.capitalizeFirstLetter(
+              moment.unix(+dataTime.date / 1000).format("dddd - DD/MM/YYYY")
+            )
+          : moment
+              .unix(+dataTime.date / 1000)
+              .locale("en")
+              .format("ddd - MM/DD/YYYY");
 
-  //   renderTimeBooking = (dataTime) => {
-  //     let { language } = this.props;
-  //     if (dataTime && !_.isEmpty(dataTime)) {
-  //       let time =
-  //         language === LANGUAGES.VI
-  //           ? dataTime.timeTypeData.valueVi
-  //           : dataTime.timeTypeData.valueEn;
+      // Ngày hôm nay
 
-  //       let date =
-  //         language === LANGUAGES.VI
-  //           ? moment.unix(+dataTime.date / 1000).format("dddd - DD/MM/YYYY")
-  //           : moment
-  //               .unix(+dataTime.date / 1000)
-  //               .locale("en")
-  //               .format("ddd - MM/DD/YYYY");
+      return (
+        <>
+          <div>
+            {time} - {date}
+          </div>
+          <div>
+            <FormattedMessage id="patient.booking-modal.free" />
+          </div>
+        </>
+      );
+    }
 
-  //       return (
-  //         <>
-  //           <div>
-  //             {time} - {date}
-  //           </div>
-  //           <div>
-  //             <FormattedMessage id="patient.booking-modal.free" />
-  //           </div>
-  //         </>
-  //       );
-  //     }
-
-  //     return <></>;
-  //   };
+    return <></>;
+  };
 
   render() {
-    // let { isShowDetailInfor, extraInfor } = this.state;
+    let { isShowDetailInfor, extraInfor } = this.state;
     // let { language } = this.props;
     let { dataProfile } = this.state;
     let {
@@ -90,8 +97,8 @@ class ProfileDoctor extends Component {
     let nameVi = "",
       nameEn = "";
     if (dataProfile && dataProfile.positionData) {
-      nameVi = `${dataProfile.positionData.valueVi} ,${dataProfile.lastName},${dataProfile.firstName}`;
-      nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.firstName},${dataProfile.lastName}`;
+      nameVi = `${dataProfile.positionData.valueVi} - ${dataProfile.lastName} ${dataProfile.firstName}`;
+      nameEn = `${dataProfile.positionData.valueEn} - ${dataProfile.firstName} ${dataProfile.lastName}`;
     }
     console.log("state", this.state);
 
@@ -111,12 +118,7 @@ class ProfileDoctor extends Component {
               {language === LANGUAGES.VI ? nameVi : nameEn}
             </div>
             <div className="down">
-              {dataProfile &&
-                dataProfile.Markdown &&
-                dataProfile.Markdown.description && (
-                  <span>{dataProfile.Markdown.description}</span>
-                )}
-              {/* {isShowDescriptionDoctor === true ? (
+              {isShowDescriptionDoctor === true ? (
                 <>
                   {dataProfile &&
                     dataProfile.Markdown &&
@@ -126,7 +128,7 @@ class ProfileDoctor extends Component {
                 </>
               ) : (
                 <>{this.renderTimeBooking(dataTime)}</>
-              )} */}
+              )}
             </div>
           </div>
         </div>
