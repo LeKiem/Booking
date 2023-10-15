@@ -111,25 +111,25 @@ class BookingModal extends Component {
     return "";
   };
 
-  // buildDoctorName = (dataTime) => {
-  //   let { language } = this.props;
-  //   if (dataTime && !_.isEmpty(dataTime)) {
-  //     let name =
-  //       language === LANGUAGES.VI
-  //         ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
-  //         : `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`;
+  buildDoctorName = (dataTime) => {
+    let { language } = this.props;
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let name =
+        language === LANGUAGES.VI
+          ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+          : `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`;
 
-  //     return name;
-  //   }
+      return name;
+    }
 
-  //   return "";
-  // };
+    return "";
+  };
 
   handleConfirmBooking = async () => {
     // console.log("2222", this.state);
     let date = new Date(this.state.birthday).getTime();
-    // let timeString = this.buildTimeBooking(this.props.dataTime);
-    // let doctorName = this.buildDoctorName(this.props.dataTime);
+    let timeString = this.buildTimeBooking(this.props.dataTime);
+    let doctorName = this.buildDoctorName(this.props.dataTime);
     let res = await postPatientBookAppoint({
       fullName: this.state.fullName,
       phoneNumber: this.state.phoneNumber,
@@ -140,10 +140,10 @@ class BookingModal extends Component {
       birthday: date,
       selectedGender: this.state.selectedGender.value,
       doctorId: this.state.doctorId,
-      timeType: this.state.timeType
-      // language: this.props.language,
-      // timeString: timeString,
-      // doctorName: doctorName
+      timeType: this.state.timeType,
+      language: this.props.language,
+      timeString: timeString,
+      doctorName: doctorName
     });
     if (res && res.errCode === 0) {
       toast.success("Booking a new appointment succeed ❤️!");
@@ -158,7 +158,7 @@ class BookingModal extends Component {
     if (dataTime && !_.isEmpty(dataTime)) {
       doctorId = dataTime.doctorId;
     }
-    console.log("name doctor", this.props);
+    console.log("name doctor", this.props.dataTime);
     return (
       <div>
         <Modal
