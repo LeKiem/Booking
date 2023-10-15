@@ -8,7 +8,7 @@ import DatePicker from "../../../../components/Input/DatePicker";
 import * as actions from "../../../../store/actions";
 import { LANGUAGES } from "../../../../utils";
 import Select from "react-select";
-// import { postPatientBookAppoint } from "../../../../services/userService";
+import { postPatientBookAppoint } from "../../../../services/userService";
 import { toast } from "react-toastify";
 import moment from "moment";
 import ProfileDoctor from "../ProfileDoctor";
@@ -31,134 +31,134 @@ class BookingModal extends Component {
   }
 
   async componentDidMount() {
-    // this.props.getGenders();
+    this.props.getGenders();
   }
 
-  //   buildDataGender = (data) => {
-  //     let result = [];
-  //     let language = this.props.language;
-  //     if (data && data.length > 0) {
-  //       data.map((item) => {
-  //         let object = {};
-  //         object.label = language === LANGUAGES.VI ? item.valueVi : item.valueEn;
-  //         object.value = item.keyMap;
-  //         result.push(object);
-  //       });
-  //     }
+  buildDataGender = (data) => {
+    let result = [];
+    let language = this.props.language;
+    if (data && data.length > 0) {
+      data.map((item) => {
+        let object = {};
+        object.label = language === LANGUAGES.VI ? item.valueVi : item.valueEn;
+        object.value = item.keyMap;
+        result.push(object);
+      });
+    }
 
-  //     return result;
-  //   };
+    return result;
+  };
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
-    // if (this.props.language !== prevProps.language) {
-    //   this.setState({
-    //     genders: this.buildDataGender(this.props.genders)
-    //   });
-    // }
-    // if (this.props.genders !== prevProps.genders) {
-    //   this.setState({
-    //     genders: this.buildDataGender(this.props.genders)
-    //   });
-    // }
-    // if (this.props.dataTime !== prevProps.dataTime) {
-    //   if (this.props.dataTime && !_.isEmpty(this.props.dataTime)) {
-    //     let doctorId = this.props.dataTime.doctorId;
-    //     let timeType = this.props.dataTime.timeType;
-    //     this.setState({
-    //       doctorId: doctorId,
-    //       timeType: timeType
-    //     });
-    //   }
-    // }
+    if (this.props.language !== prevProps.language) {
+      this.setState({
+        genders: this.buildDataGender(this.props.genders)
+      });
+    }
+    if (this.props.genders !== prevProps.genders) {
+      this.setState({
+        genders: this.buildDataGender(this.props.genders)
+      });
+    }
+    if (this.props.dataTime !== prevProps.dataTime) {
+      if (this.props.dataTime && !_.isEmpty(this.props.dataTime)) {
+        let doctorId = this.props.dataTime.doctorId;
+        let timeType = this.props.dataTime.timeType;
+        this.setState({
+          doctorId: doctorId,
+          timeType: timeType
+        });
+      }
+    }
   }
 
-  //   handleOnChangeInput = (event, id) => {
-  //     let valueInput = event.target.value;
-  //     let stateCopy = { ...this.state };
-  //     stateCopy[id] = valueInput;
-  //     this.setState({
-  //       ...stateCopy
-  //     });
-  //   };
+  handleOnChangeInput = (event, id) => {
+    let valueInput = event.target.value;
+    let stateCopy = { ...this.state };
+    stateCopy[id] = valueInput;
+    this.setState({
+      ...stateCopy
+    });
+  };
 
-  //   handleOnChangeDatePicker = (date) => {
-  //     this.setState({
-  //       birthday: date[0]
-  //     });
-  //   };
+  handleOnChangeDatePicker = (date) => {
+    this.setState({
+      birthday: date[0]
+    });
+  };
 
-  //   handleChangeSelect = (selectedOption) => {
-  //     this.setState({ selectedGender: selectedOption });
-  //   };
-  //   buildTimeBooking = (dataTime) => {
-  //     let { language } = this.props;
-  //     if (dataTime && !_.isEmpty(dataTime)) {
-  //       let time =
-  //         language === LANGUAGES.VI
-  //           ? dataTime.timeTypeData.valueVi
-  //           : dataTime.timeTypeData.valueEn;
+  handleChangeSelect = (selectedOption) => {
+    this.setState({ selectedGender: selectedOption });
+  };
+  buildTimeBooking = (dataTime) => {
+    let { language } = this.props;
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let time =
+        language === LANGUAGES.VI
+          ? dataTime.timeTypeData.valueVi
+          : dataTime.timeTypeData.valueEn;
 
-  //       let date =
-  //         language === LANGUAGES.VI
-  //           ? moment.unix(+dataTime.date / 1000).format("dddd - DD/MM/YYYY")
-  //           : moment
-  //               .unix(+dataTime.date / 1000)
-  //               .locale("en")
-  //               .format("ddd - MM/DD/YYYY");
-  //       return `${time} - ${date}`;
-  //     }
+      let date =
+        language === LANGUAGES.VI
+          ? moment.unix(+dataTime.date / 1000).format("dddd - DD/MM/YYYY")
+          : moment
+              .unix(+dataTime.date / 1000)
+              .locale("en")
+              .format("ddd - MM/DD/YYYY");
+      return `${time} - ${date}`;
+    }
 
-  //     return "";
-  //   };
+    return "";
+  };
 
-  //   buildDoctorName = (dataTime) => {
-  //     let { language } = this.props;
-  //     if (dataTime && !_.isEmpty(dataTime)) {
-  //       let name =
-  //         language === LANGUAGES.VI
-  //           ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
-  //           : `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`;
+  // buildDoctorName = (dataTime) => {
+  //   let { language } = this.props;
+  //   if (dataTime && !_.isEmpty(dataTime)) {
+  //     let name =
+  //       language === LANGUAGES.VI
+  //         ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+  //         : `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`;
 
-  //       return name;
-  //     }
+  //     return name;
+  //   }
 
-  //     return "";
-  //   };
+  //   return "";
+  // };
 
-  //   handleConfirmBooking = async () => {
-  //     let date = new Date(this.state.birthday).getTime();
-  //     let timeString = this.buildTimeBooking(this.props.dataTime);
-  //     let doctorName = this.buildDoctorName(this.props.dataTime);
-  //     let res = await postPatientBookAppoint({
-  //       fullName: this.state.fullName,
-  //       phoneNumber: this.state.phoneNumber,
-  //       email: this.state.email,
-  //       address: this.state.address,
-  //       reason: this.state.reason,
-  //       date: this.props.dataTime.date,
-  //       birthday: date,
-  //       selectedGender: this.state.selectedGender.value,
-  //       doctorId: this.state.doctorId,
-  //       timeType: this.state.timeType,
-  //       language: this.props.language,
-  //       timeString: timeString,
-  //       doctorName: doctorName
-  //     });
-
-  //     if (res && res.errCode === 0) {
-  //       toast.success("Booking a new appointment succeed!");
-  //       this.props.closeBookingModal();
-  //     } else {
-  //       toast.error("Booking a new appointment error!");
-  //     }
-  //   };
+  handleConfirmBooking = async () => {
+    // console.log("2222", this.state);
+    let date = new Date(this.state.birthday).getTime();
+    // let timeString = this.buildTimeBooking(this.props.dataTime);
+    // let doctorName = this.buildDoctorName(this.props.dataTime);
+    let res = await postPatientBookAppoint({
+      fullName: this.state.fullName,
+      phoneNumber: this.state.phoneNumber,
+      email: this.state.email,
+      address: this.state.address,
+      reason: this.state.reason,
+      date: this.props.dataTime.date,
+      birthday: date,
+      selectedGender: this.state.selectedGender.value,
+      doctorId: this.state.doctorId,
+      timeType: this.state.timeType
+      // language: this.props.language,
+      // timeString: timeString,
+      // doctorName: doctorName
+    });
+    if (res && res.errCode === 0) {
+      toast.success("Booking a new appointment succeed ❤️!");
+      this.props.closeBookingModal();
+    } else {
+      toast.error("Booking a new appointment error!");
+    }
+  };
   render() {
     let { isOpenModal, closeBookingModal, dataTime } = this.props;
     let doctorId = "";
     if (dataTime && !_.isEmpty(dataTime)) {
       doctorId = dataTime.doctorId;
     }
-
+    console.log("name doctor", this.props);
     return (
       <div>
         <Modal
@@ -197,10 +197,10 @@ class BookingModal extends Component {
                   </label>
                   <input
                     className="form-control"
-                    //   value={this.state.fullName}
-                    //   onChange={(event) =>
-                    //     this.handleOnChangeInput(event, "fullName")
-                    //   }
+                    value={this.state.fullName}
+                    onChange={(event) =>
+                      this.handleOnChangeInput(event, "fullName")
+                    }
                   />
                 </div>
                 <div className="col-6 form-group">
@@ -209,10 +209,10 @@ class BookingModal extends Component {
                   </label>
                   <input
                     className="form-control"
-                    //   value={this.state.phoneNumber}
-                    //   onChange={(event) =>
-                    //     this.handleOnChangeInput(event, "phoneNumber")
-                    //   }
+                    value={this.state.phoneNumber}
+                    onChange={(event) =>
+                      this.handleOnChangeInput(event, "phoneNumber")
+                    }
                   />
                 </div>
                 <div className="col-6 form-group">
@@ -221,10 +221,10 @@ class BookingModal extends Component {
                   </label>
                   <input
                     className="form-control"
-                    //   value={this.state.email}
-                    //   onChange={(event) =>
-                    //     this.handleOnChangeInput(event, "email")
-                    //   }
+                    value={this.state.email}
+                    onChange={(event) =>
+                      this.handleOnChangeInput(event, "email")
+                    }
                   />
                 </div>
                 <div className="col-6 form-group">
@@ -234,10 +234,10 @@ class BookingModal extends Component {
 
                   <input
                     className="form-control"
-                    //   value={this.state.address}
-                    //   onChange={(event) =>
-                    //     this.handleOnChangeInput(event, "address")
-                    //   }
+                    value={this.state.address}
+                    onChange={(event) =>
+                      this.handleOnChangeInput(event, "address")
+                    }
                   />
                 </div>
                 <div className="col-12 form-group">
@@ -247,10 +247,10 @@ class BookingModal extends Component {
                   </label>
                   <input
                     className="form-control"
-                    //   value={this.state.reason}
-                    //   onChange={(event) =>
-                    //     this.handleOnChangeInput(event, "reason")
-                    //   }
+                    value={this.state.reason}
+                    onChange={(event) =>
+                      this.handleOnChangeInput(event, "reason")
+                    }
                   />
                 </div>
                 <div className="col-6 form-group">
@@ -259,8 +259,8 @@ class BookingModal extends Component {
                   </label>
                   <DatePicker
                     className="form-control"
-                    //   onChange={this.handleOnChangeDatePicker}
-                    //   value={this.state.birthday}
+                    onChange={this.handleOnChangeDatePicker}
+                    value={this.state.birthday}
                   />
                 </div>
                 <div className="col-6 form-group">
@@ -268,18 +268,18 @@ class BookingModal extends Component {
                     {" "}
                     <FormattedMessage id="patient.booking-modal.gender" />
                   </label>
-                  {/* <Select
-                      value={this.state.selectedGender}
-                      onChange={this.handleChangeSelect}
-                      options={this.state.genders}
-                    /> */}
+                  <Select
+                    value={this.state.selectedGender}
+                    onChange={this.handleChangeSelect}
+                    options={this.state.genders}
+                  />
                 </div>
               </div>
             </div>
             <div className="booking-modal-footer">
               <button
                 className="btn-booking-confirm"
-                //   onClick={() => this.handleConfirmBooking()}
+                onClick={() => this.handleConfirmBooking()}
               >
                 <FormattedMessage id="patient.booking-modal.confirm" />
               </button>
@@ -305,7 +305,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getGenders: () => dispatch(actions.fetchGenderStart())
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingModal);

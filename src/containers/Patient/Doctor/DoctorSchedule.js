@@ -128,6 +128,7 @@ class DoctorSchedule extends Component {
       dataScheduleTimeModal
     } = this.state;
     let { language } = this.props;
+    console.log("lele", this.state);
     return (
       <>
         <div className="doctor-schedule-container">
