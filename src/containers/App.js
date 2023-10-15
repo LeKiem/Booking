@@ -9,19 +9,15 @@ import {
   userIsAuthenticated,
   userIsNotAuthenticated
 } from "../hoc/authentication";
-
 import { path } from "../utils";
-
 import Home from "../routes/Home";
 // import Login from '../routes/Login';
 import Login from "./Auth/Login";
-
 import Header from "./Header/Header";
 import System from "../routes/System";
-
+import VerifyEmail from "./Patient/VerifyEmail";
 import { CustomToastCloseButton } from "../components/CustomToast";
 import HomePage from "./HomePage/HomePage.js";
-
 import CustomScrollbars from "../components/CustomScrollbars";
 import Doctor from "../routes/Doctor";
 class App extends Component {
@@ -66,6 +62,10 @@ class App extends Component {
                   />
                   <Route path={path.HOMEPAGE} exact component={HomePage} />
                   <Route path={path.DETAIl_DOCTOR} component={DetailDoctor} />
+                  <Route
+                    path={path.VERY_EMAIL_BOOKING}
+                    component={VerifyEmail}
+                  />
                 </Switch>
               </CustomScrollbars>
             </div>
@@ -88,14 +88,14 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     started: state.app.started,
     isLoggedIn: state.user.isLoggedIn
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {};
 };
 

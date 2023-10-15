@@ -93,6 +93,10 @@
             "cancel": "Hủy",
             "free": "Miễn phí đặt lịch",
             "price": "Giá khám "
+        },
+        "confirm": {
+            "successfully": "Xác nhận lịch hẹn thành công",
+            "confirmed": "Lịch hẹn không tồn tại hoặc đã được xác nhận"
         }
     },
     "admin": {

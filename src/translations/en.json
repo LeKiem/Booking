@@ -93,6 +93,10 @@
       "cancel": "Cancel",
       "free": "Free booking",
       "price": " Price"
+    },
+    "confirm": {
+      "successfully": "Appointment confirmed successfully",
+      "confirmed": "Appointment schedule does not exist or has been confirmed"
     }
   },
   "admin": {
