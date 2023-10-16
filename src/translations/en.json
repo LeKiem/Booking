@@ -114,6 +114,12 @@
       "note": "note",
       "specialty": "Specialty",
       "select-clinic": "Clinic"
+    },
+    "manage-specialty": {
+      "title": "SPECIALTY MANAGEMENT",
+      "name": "Name of specialty",
+      "img": "Name of specialty",
+      "save": "save"
     }
   }
 }

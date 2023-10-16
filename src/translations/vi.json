@@ -114,6 +114,12 @@
             "note": "Ghi chú",
             "specialty": "Chọn chuyên khoa",
             "select-clinic": "Chọn phòng khám"
+        },
+        "manage-specialty": {
+            "title": "QUẢN LÍ CHUYÊN KHOA",
+            "name": "Tên chuyên khoa",
+            "img": "Ảnh chuyên khoa",
+            "save": "Lưu"
         }
     }
 }
