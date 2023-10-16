@@ -8,44 +8,61 @@ import "slick-carousel/slick/slick-theme.css";
 import { getAllSpecialty } from "../../../services/userService";
 import { withRouter } from "react-router";
 
-// Import css files
-
 class Specialty extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSpecialty: []
+    };
+  }
+
+  async componentDidMount() {
+    let res = await getAllSpecialty();
+    if (res && res.errCode === 0) {
+      this.setState({
+        dataSpecialty: res.data ? res.data : []
+      });
+    }
+  }
+  // handleViewDetailSpecialty = (item) => {
+  //   if (this.props.history) {
+  //     this.props.history.push(`/detail-specialty/${item.id}`);
+  //   }
+  // };
   render() {
+    let { dataSpecialty } = this.state;
     return (
       <div className="section-share section-specialty">
         <div className="section-container">
           <div className="section-header">
-            <span className="title-section"> Chuyen khoa pho bien</span>
-            <button className="btn-section">Xem them</button>
+            <span className="title-section">
+              {" "}
+              <FormattedMessage id="homepage.specialty-poplular" />
+            </span>
+            <button className="btn-section">
+              {" "}
+              <FormattedMessage id="homepage.more-info" />
+            </button>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>
-              <div className="section-customize">
-                <div className="bg-img section-specialty" />
-
-                <div> Co xuong khop 1</div>
-              </div>
-              <div className="section-customize">
-                <div className="bg-img section-specialty" />
-                <div> Co xuong khop 2</div>
-              </div>
-              <div className="section-customize">
-                <div className="bg-img section-specialty" />
-                <div> Co xuong khop 3</div>
-              </div>
-              <div className="section-customize">
-                <div className="bg-img section-specialty" />
-                <div> Co xuong khop 4</div>
-              </div>
-              <div className="section-customize">
-                <div className="bg-img section-specialty" />
-                <div> Co xuong khop 5</div>
-              </div>
-              <div className="section-customize">
-                <div className="bg-img section-specialty" />
-                <div> Co xuong khop 6</div>
-              </div>
+              {dataSpecialty &&
+                dataSpecialty.length > 0 &&
+                dataSpecialty.map((item, index) => {
+                  return (
+                    <div
+                      // onClick={() => this.handleViewDetailSpecialty(item)}
+                      className="section-customize specialty-child"
+                      key={index}
+                    >
+                      <div
+                        className="bg-img section-specialty"
+                        style={{ backgroundImage: `url(${item.image})` }}
+                      />
+                      <div className="specialty-name">{item.name}</div>
+                    </div>
+                  );
+                })}
             </Slider>
           </div>
         </div>
@@ -54,14 +71,14 @@ class Specialty extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {};
 };
 

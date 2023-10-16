@@ -64,7 +64,8 @@ class ManageSpecialty extends Component {
         name: "",
         imageBase64: "",
         descriptionHTML: "",
-        descriptionMarkdown: ""
+        descriptionMarkdown: "",
+        previewImgURL: ""
       });
     } else {
       toast.error("Something wrongs...");
