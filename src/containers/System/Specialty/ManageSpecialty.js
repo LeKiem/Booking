@@ -4,6 +4,7 @@ import { FormattedMessage } from "react-intl";
 import "./ManageSpecialty.scss";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
+import Lightbox from "react-image-lightbox";
 import { CommonUtils } from "../../../utils";
 import { createNewSpecialty } from "../../../services/userService";
 import { toast } from "react-toastify";
@@ -17,7 +18,9 @@ class ManageSpecialty extends Component {
       name: "",
       imageBase64: "",
       descriptionHTML: "",
-      descriptionMarkdown: ""
+      descriptionMarkdown: "",
+      previewImgURL: "",
+      isOpen: false
     };
   }
 
@@ -46,8 +49,10 @@ class ManageSpecialty extends Component {
     let file = data[0];
     if (file) {
       let base64 = await CommonUtils.getBase64(file);
+      let objectUrl = URL.createObjectURL(file);
       this.setState({
-        imageBase64: base64
+        imageBase64: base64,
+        previewImgURL: objectUrl
       });
     }
   };
@@ -65,6 +70,14 @@ class ManageSpecialty extends Component {
       toast.error("Something wrongs...");
     }
   };
+
+  openPreviewImage = () => {
+    if (!this.state.previewImgURL) return;
+    this.setState({
+      isOpen: true
+    });
+  };
+
   render() {
     return (
       // <div>Helolo</div>
@@ -86,7 +99,7 @@ class ManageSpecialty extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "name")}
             />
           </div>
-          <div className="col-6 form-group ">
+          {/* <div className="col-6 form-group ">
             <label>
               {" "}
               <FormattedMessage id="admin.manage-specialty.img" />
@@ -96,6 +109,24 @@ class ManageSpecialty extends Component {
               type="file"
               onChange={(event) => this.handleOnchangeImage(event)}
             />
+          </div> */}
+          <div className="preview-img-container col-4">
+            <input
+              id="previewImg"
+              type="file"
+              hidden
+              onChange={(event) => this.handleOnchangeImage(event)}
+            />
+            <label className="label-upload" htmlFor="previewImg">
+              Tải ảnh <i className="fas fa-upload"></i>
+            </label>
+            <div
+              className="preview-img"
+              style={{
+                backgroundImage: `url(${this.state.previewImgURL})`
+              }}
+              onClick={() => this.openPreviewImage()}
+            ></div>
           </div>
           <div className="col-12">
             <MdEditor
@@ -114,6 +145,12 @@ class ManageSpecialty extends Component {
             </button>
           </div>
         </div>
+        {this.state.isOpen === true && (
+          <Lightbox
+            mainSrc={this.state.previewImgURL}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+          />
+        )}
       </div>
     );
   }
