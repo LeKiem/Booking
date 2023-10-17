@@ -25,22 +25,21 @@
     }
 
     .detail-specialty-body {
-        padding       : 0 100px;
+        margin        : 0 100px;
         background    : #eeee;
         display       : flex;
         flex-direction: column;
     }
 
     .each-doctor {
-        display         : flex;
-        width           : 100%;
-        min-height      : 300px;
-        margin          : 15px 0;
-        padding         : 10px;
-        // border    : 1px solid rgb(6, 84, 26);
-        background-color: #fff;
-        box-shadow      : 0 1px 6px #20212447;
-        border-radius   : 8px;
+        display            : flex;
+        // width           : 100%;
+        min-height         : 300px;
+        margin             : 15px 100px;
+        padding            : 10px;
+        background-color   : #fff;
+        box-shadow         : 0 1px 6px #20212447;
+        border-radius      : 8px;
 
         .dt-content-left {
             width       : 50%;
@@ -55,9 +54,8 @@
         }
 
         .dt-content-right {
-            width     : 50%;
-            // border : 1px solid orange;
-            padding   : 10px;
+            width  : 50%;
+            padding: 10px;
 
             .doctor-schedule {
                 .doctor-schedule-container {
