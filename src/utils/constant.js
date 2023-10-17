@@ -5,6 +5,8 @@ export const path = {
   LOG_OUT: "/logout",
   SYSTEM: "/system",
   DETAIl_DOCTOR: "/detail-doctor/:id",
+  DETAIL_SPECIALTY: "/detail-specialty/:id",
+  DETAIL_CLINIC: "/detail-clinic/:id",
   VERY_EMAIL_BOOKING: "/verify-booking"
 };
 

@@ -24,11 +24,11 @@ class Specialty extends Component {
       });
     }
   }
-  // handleViewDetailSpecialty = (item) => {
-  //   if (this.props.history) {
-  //     this.props.history.push(`/detail-specialty/${item.id}`);
-  //   }
-  // };
+  handleViewDetailSpecialty = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-specialty/${item.id}`);
+    }
+  };
   render() {
     let { dataSpecialty } = this.state;
     return (
@@ -51,7 +51,7 @@ class Specialty extends Component {
                 dataSpecialty.map((item, index) => {
                   return (
                     <div
-                      // onClick={() => this.handleViewDetailSpecialty(item)}
+                      onClick={() => this.handleViewDetailSpecialty(item)}
                       className="section-customize specialty-child"
                       key={index}
                     >
