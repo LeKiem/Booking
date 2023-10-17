@@ -81,7 +81,7 @@ class ManageDoctor extends Component {
         resSpecialty,
         "SPECIALTY"
       );
-      // let dataSelectClinic = this.buildDataInputSelect(resClinic, "CLINIC");
+      let dataSelectClinic = this.buildDataInputSelect(resClinic, "CLINIC");
 
       this.setState({
         listPrice: dataSelectPrice,
@@ -224,8 +224,8 @@ class ManageDoctor extends Component {
     let {
       listPayment,
       listPrice,
-      listProvince
-      // listSpecialty,
+      listProvince,
+      listSpecialty
       // listClinic
     } = this.state;
     let res = await getDetailInfoDoctor(selectedOption.value);
@@ -237,13 +237,13 @@ class ManageDoctor extends Component {
         paymentId = "",
         priceId = "",
         provinceId = "",
-        // specialtyId = "",
+        specialtyId = "",
         // clinicId = "",
-        // selectClinic = "",
         selectPrice = "",
         selectPayment = "",
-        selectProvince = "";
-      // selectSpecialty = "";
+        selectProvince = "",
+        selectSpecialty = "";
+      // selectClinic = "",
 
       if (res.data.Doctor_Infor) {
         addressClinic = res.data.Doctor_Infor.addressClinic;
@@ -253,7 +253,7 @@ class ManageDoctor extends Component {
         paymentId = res.data.Doctor_Infor.paymentId;
         priceId = res.data.Doctor_Infor.priceId;
         provinceId = res.data.Doctor_Infor.provinceId;
-        // specialtyId = res.data.Doctor_Infor.specialtyId;
+        specialtyId = res.data.Doctor_Infor.specialtyId;
         // clinicId = res.data.Doctor_Infor.clinicId;
 
         selectPayment = listPayment.find((item) => {
@@ -265,9 +265,9 @@ class ManageDoctor extends Component {
         selectProvince = listProvince.find((item) => {
           return item && item.value === provinceId;
         });
-        // selectSpecialty = listSpecialty.find(item => {
-        //   return item && item.value === specialtyId;
-        // });
+        selectSpecialty = listSpecialty.find((item) => {
+          return item && item.value === specialtyId;
+        });
         // selectClinic = listClinic.find(item => {
         //   return item && item.value === clinicId;
         // });
@@ -283,8 +283,8 @@ class ManageDoctor extends Component {
         note: note,
         selectPayment: selectPayment,
         selectPrice: selectPrice,
-        selectProvince: selectProvince
-        // selectSpecialty: selectSpecialty,
+        selectProvince: selectProvince,
+        selectSpecialty: selectSpecialty
         // selectClinic: selectClinic
       });
     } else {
