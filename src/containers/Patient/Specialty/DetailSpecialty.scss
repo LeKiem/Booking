@@ -1,4 +1,6 @@
 .detail-specialty-container {
+    background: #eeee;
+
     .descriotion-specialty {
         background-color: #fff !important;
         padding         : 10px;
@@ -27,10 +29,10 @@
     }
 
     .detail-specialty-body {
-        margin        : 0 100px;
-        background    : #eeee;
-        display       : flex;
-        flex-direction: column;
+        margin           : 0 100px;
+        // background    : #eeee;
+        display          : flex;
+        flex-direction   : column;
     }
 
     .each-doctor {
@@ -44,19 +46,24 @@
         border-radius      : 8px;
 
         .dt-content-left {
-            width       : 50%;
+            width       : 40%;
             border-right: 1px solid #ddd;
 
             .profile-doctor-container {
                 .down {
-                    padding: 5px;
+                    padding: 15px;
+                }
+
+                .up {
+                    padding  : 0 15px;
+                    font-size: 20px;
                 }
             }
 
         }
 
         .dt-content-right {
-            width  : 50%;
+            width  : 60%;
             padding: 10px;
 
             .doctor-schedule {

@@ -70,8 +70,6 @@ class DetailSpecialty extends Component {
           listProvince: dataProvince ? dataProvince : []
         });
       }
-      // console.log("hoi dan it ", res);
-      //
     }
   }
 
@@ -105,7 +103,7 @@ class DetailSpecialty extends Component {
             });
           }
         }
-
+        console.log("jahah", arrDoctorId);
         this.setState({
           dataDetailSpecialty: res.data,
           arrDoctorId: arrDoctorId
