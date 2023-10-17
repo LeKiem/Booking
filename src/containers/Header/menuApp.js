@@ -28,9 +28,14 @@ export const adminMenu = [
     ]
   },
   {
-    //quản lí phòng khám
+    //Quản lí phòng khám
     name: "menu.admin.clinic",
-    menus: [{ name: "menu.admin.manage-clinic", link: "/system/manage-clinic" }]
+    menus: [
+      {
+        name: "menu.admin.manage-clinic",
+        link: "/system/manage-clinic"
+      }
+    ]
   },
   {
     //quản lí chuyen khoa

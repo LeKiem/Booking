@@ -120,6 +120,13 @@
             "name": "Tên chuyên khoa",
             "img": "Ảnh chuyên khoa",
             "save": "Lưu"
+        },
+        "manage-clinic": {
+            "title": "QUẢN LÍ PHÒNG KHÁM",
+            "name": "Tên phòng khám",
+            "img": "Ảnh phòng khám",
+            "address": "Ảnh phòng khám",
+            "save": "Lưu"
         }
     }
 }
