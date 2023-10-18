@@ -58,7 +58,8 @@
   "homepage": {
     "outstanding-doctor": "Outstanding Doctor of the Week",
     "more-info": "More Info",
-    "specialty-poplular": " Popular Specialization"
+    "specialty-poplular": " Popular Specialization",
+    "clinic": "Outstanding medical facilities"
   },
   "manage-schedule": {
     "title": "Manage doctor's examination plan",

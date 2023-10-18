@@ -20,6 +20,7 @@ import VerifyEmail from "./Patient/VerifyEmail";
 import { CustomToastCloseButton } from "../components/CustomToast";
 import HomePage from "./HomePage/HomePage.js";
 import CustomScrollbars from "../components/CustomScrollbars";
+import DetailClinic from "./Patient/Clinic/DetailClinic";
 import Doctor from "../routes/Doctor";
 class App extends Component {
   handlePersistorState = () => {
@@ -72,6 +73,7 @@ class App extends Component {
                     path={path.VERY_EMAIL_BOOKING}
                     component={VerifyEmail}
                   />
+                  <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
                 </Switch>
               </CustomScrollbars>
             </div>
