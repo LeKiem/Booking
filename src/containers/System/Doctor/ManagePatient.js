@@ -109,7 +109,7 @@ class ManagePatient extends Component {
   render() {
     let { dataPatient, isOpenRemedyModal, dataModal } = this.state;
     let { language } = this.props;
-    console.log("2222222", this.props);
+    console.log("2222222", this.state);
     return (
       <>
         {/* <LoadingOverlay
@@ -162,6 +162,12 @@ class ManagePatient extends Component {
                               onClick={() => this.handleBtnConfirm(item)}
                             >
                               Xác nhận
+                            </button>
+                            <button
+                              className="mp-btn-remedy"
+                              onClick={() => this.handleBtnConfirm(item)}
+                            >
+                              Gửi hóa đơn
                             </button>
                           </td>
                         </tr>
