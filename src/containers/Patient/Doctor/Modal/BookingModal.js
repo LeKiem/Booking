@@ -12,6 +12,7 @@ import { postPatientBookAppoint } from "../../../../services/userService";
 import { toast } from "react-toastify";
 import moment from "moment";
 import ProfileDoctor from "../ProfileDoctor";
+import LoadingOverlay from "react-loading-overlay";
 
 class BookingModal extends Component {
   constructor(props) {
@@ -26,7 +27,8 @@ class BookingModal extends Component {
       selectedGender: "",
       doctorId: "",
       genders: "",
-      timeType: ""
+      timeType: "",
+      isShowLoading: false
     };
   }
 
@@ -48,7 +50,6 @@ class BookingModal extends Component {
 
     return result;
   };
-
   async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.language !== prevProps.language) {
       this.setState({
@@ -71,7 +72,6 @@ class BookingModal extends Component {
       }
     }
   }
-
   handleOnChangeInput = (event, id) => {
     let valueInput = event.target.value;
     let stateCopy = { ...this.state };
@@ -80,13 +80,11 @@ class BookingModal extends Component {
       ...stateCopy
     });
   };
-
   handleOnChangeDatePicker = (date) => {
     this.setState({
       birthday: date[0]
     });
   };
-
   handleChangeSelect = (selectedOption) => {
     this.setState({ selectedGender: selectedOption });
   };
@@ -110,7 +108,6 @@ class BookingModal extends Component {
 
     return "";
   };
-
   buildDoctorName = (dataTime) => {
     let { language } = this.props;
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -127,6 +124,9 @@ class BookingModal extends Component {
 
   handleConfirmBooking = async () => {
     // console.log("2222", this.state);
+    this.setState({
+      isShowLoading: true
+    });
     let date = new Date(this.state.birthday).getTime();
     let timeString = this.buildTimeBooking(this.props.dataTime);
     let doctorName = this.buildDoctorName(this.props.dataTime);
@@ -145,6 +145,9 @@ class BookingModal extends Component {
       timeString: timeString,
       doctorName: doctorName
     });
+    this.setState({
+      isShowLoading: false
+    });
     if (res && res.errCode === 0) {
       toast.success("Booking a new appointment succeed ❤️!");
       this.props.closeBookingModal();
@@ -160,7 +163,12 @@ class BookingModal extends Component {
     }
     console.log("name doctor", this.props.dataTime);
     return (
-      <div>
+      // <div>
+      <LoadingOverlay
+        active={this.state.isShowLoading}
+        spinner
+        text="Loading..."
+      >
         <Modal
           isOpen={isOpenModal}
           className={"booking-modal-container"}
@@ -292,7 +300,7 @@ class BookingModal extends Component {
             </div>
           </div>
         </Modal>
-      </div>
+      </LoadingOverlay>
     );
   }
 }
